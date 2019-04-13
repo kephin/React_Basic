@@ -80,6 +80,8 @@ Essentially when we pass one component to another component, the child component
 | getDerivedStateFromProps |||
 | getSnapshotBeforeUpdate |||
 
+More information: [Lifecycle in React](./lifecycle.md)
+
 ## Performance issue of re-rendering a component
 
 :star: Never initialize any work or request inside render function because render method is going to be called very frequently.
