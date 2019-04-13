@@ -100,9 +100,9 @@ More information: [Lifecycle in React](./lifecycle.md)
 
     ```javascript
     shouldComponentUpdate(nextProps) {
-        const isTitleChanged = this.props.title !== nextProps.title;
+        const isTitleChanged = this.props.title !== nextProps.title
         const isContentChanged = this.props.content !== nextProps.content
-        return isTitleChanged || isContentChanged;
+        return isTitleChanged || isContentChanged
     }
     ```
 
@@ -113,26 +113,26 @@ More information: [Lifecycle in React](./lifecycle.md)
 ```javascript
 const getSeason = (lat, month) => {
   return month > 2 && month < 9) lat > 0
-    ? lat > 0 ? 'summer' : 'winter';
-    : lat > 0 ? 'winter' : 'summer';
-};
+    ? lat > 0 ? 'summer' : 'winter'
+    : lat > 0 ? 'winter' : 'summer'
+}
 
 const SeasonDisplay = props => {
-  const season = getSeason(props.lat, new Date().getMonth());
+  const season = getSeason(props.lat, new Date().getMonth())
   const text = season === 'winter'
     ? 'Burr it is cold.'
-    : "Let's hit the beach!";
+    : "Let's hit the beach!"
   const icon = season === 'winter'
     ? 'snowflake'
-    : 'sun';
+    : 'sun'
 
   return (
     <div>
       <i className={`${icon} icon`} />
       <h1>{text}</h1>
     </div>
-  );
-};
+  )
+}
 ```
 
 :thumbsup: Using config object:
@@ -147,38 +147,38 @@ const seasonConfig = {
     text: 'Burr it is cold.',
     iconName: 'snowflake',
   },
-};
+}
 
 const getSeason = (lat, month) => {
   return month > 2 && month < 9) lat > 0
-    ? lat > 0 ? 'summer' : 'winter';
-    : lat > 0 ? 'winter' : 'summer';
-};
+    ? lat > 0 ? 'summer' : 'winter'
+    : lat > 0 ? 'winter' : 'summer'
+}
 
 const SeasonDisplay = props => {
-  const season = getSeason(props.lat, new Date().getMonth());
-  const { text, iconName } = seasonConfig[season];
+  const season = getSeason(props.lat, new Date().getMonth())
+  const { text, iconName } = seasonConfig[season]
 
   return (
     <div>
       <i className={`${iconName} icon`} />
       <h1>{text}</h1>
     </div>
-  );
-};
+  )
+}
 ```
 
 ## Specifying default props
 
 ```javascript
-import React from 'react';
+import React from 'react'
 
 export default const Spinner = props => {
   return (
     <div className='ui active dimmer'>
       <div className='ui text loader'>{props.message}</div>
     </div>
-  );
+  )
 }
 
 Spinner.defaultProps = {
@@ -197,13 +197,13 @@ In general, we always try as much as possible to avoid multiple return statement
 ```javascript
 render() {
   if (this.state.errorMessage && !this.state.lat) {
-    return <div>Error: {this.state.errorMessage}</div>;
+    return <div>Error: {this.state.errorMessage}</div>
   }
   if (!this.state.errorMessage && this.state.lat) {
-    return <SeasonDisplay lat={this.state.lat}/>;
+    return <SeasonDisplay lat={this.state.lat}/>
   }
   
-  return <Spinner message='Please accept location request' />;
+  return <Spinner message='Please accept location request' />
 }
 ```
 
@@ -212,17 +212,17 @@ render() {
 ```javascript
 renderContent() {
   if (this.state.errorMessage && !this.state.lat) {
-    return <div>Error: {this.state.errorMessage}</div>;
+    return <div>Error: {this.state.errorMessage}</div>
   }
   if (!this.state.errorMessage && this.state.lat) {
-    return <SeasonDisplay lat={this.state.lat}/>;
+    return <SeasonDisplay lat={this.state.lat}/>
   }
   
-  return <Spinner message='Please accept location request' />;
+  return <Spinner message='Please accept location request' />
 }
 
 render() {
-  return <div className='border red'>{renderContent()}</div>;
+  return <div className='border red'>{renderContent()}</div>
 }
 ```
 
@@ -239,22 +239,20 @@ We create *refs* in the constructor, assign them to instance variables, then pas
 For example, if we want to access the height of images inside the application
 
 ```javascript
-import React from 'react';
+import React from 'react'
 
 class ImageCard extends React.Component {
   constructor(props) {
-    super(props);
-
-    this.imageCardRef = React.createRef();
+    super(props)
+    this.imageCardRef = React.createRef()
   }
 
   componentDidMount() {
-    console.log(this.imageCardRef); // Get all the image properties!!
+    console.log(this.imageCardRef) // Get all the image properties!!
   }
 
   render() {
-    const { src, alt } = this.props;
-
+    const { src, alt } = this.props
     <img ref={this.imageCardRef} src={src} alt={alt} />
   }
 }
@@ -277,35 +275,35 @@ The entire idea is to make sure that it is the react application that drives and
 ```javascript
 class Car {
   setDriveSound(sound) {
-    this.sound = sound;
+    this.sound = sound
   }
 
   drive() {
-    return this.sound;
+    return this.sound
   }
 }
 
-const car = new Car();
-car.setDriveSound('vroom');
-car.drive(); // vroom
+const car = new Car()
+car.setDriveSound('vroom')
+car.drive() // vroom
 
 const truck = {
   sound: 'putputput',
   driveMyTruck: car.drive,
   // is exactly the same as
   driveMyTruck() {
-    return this.sound;
+    return this.sound
   }
-};
-truck.driveMyTruck(); //putputput
+}
+truck.driveMyTruck() //putputput
 ```
 
 :exclamation: The issue here is
 
 ```javascript
-const drive = car.drive;
-drive(); // Uncaught TypeError: Cannot read property 'sound' of undefined
-drive; // ƒ drive() { return this.sound; }
+const drive = car.drive
+drive() // Uncaught TypeError: Cannot read property 'sound' of undefined
+drive // ƒ drive() { return this.sound }
 ```
 
 :bulb: How we solve the issue in react: using arrow function, which bind *this* lexically
@@ -314,26 +312,24 @@ drive; // ƒ drive() { return this.sound; }
 class SearchBar extends Component {
   state = {
     term: ""
-  };
+  }
 
   // wrong
   onFormSubmit(event) {
-    event.preventDefault();
-
+    event.preventDefault()
     // Uncaught TypeError: Cannot read property 'state' of undefined
-    console.log(this.state.term);
-  };
+    console.log(this.state.term)
+  }
 
   // correct: bind *this* lexically
   onFormSubmit = event => {
-    event.preventDefault();
-
+    event.preventDefault()
     // *this* will be the SearchBar component
-    console.log(this.state.term);
-  };
+    console.log(this.state.term)
+  }
 
   render() {
-    const { classes } = this.props;
+    const { classes } = this.props
 
     return (
       <form onSubmit={this.onFormSubmit}>
@@ -341,7 +337,7 @@ class SearchBar extends Component {
           //...
         />
       </form>
-    );
+    )
   }
 }
 ```
@@ -355,16 +351,16 @@ When we submit some searching term from SearchBar component, the method *this.pr
 class SearchBar extends Component {
   state = {
     term: '',
-  };
+  }
 
   onFormSubmit = event => {
-    event.preventDefault();
+    event.preventDefault()
     // here!
-    this.props.onSubmit(this.state.term);
-  };
+    this.props.onSubmit(this.state.term)
+  }
 
   render() {
-    const { classes } = this.props;
+    const { classes } = this.props
 
     return (
       <form
@@ -381,7 +377,7 @@ class SearchBar extends Component {
           onChange={this.onInputChange}
         />
       </form>
-    );
+    )
   }
 }
 ```
@@ -391,28 +387,26 @@ And we look into the `this.props.onSubmit`, which is defined inside App componen
 ```javascript
 // App component
 class App extends Component {
-  state = { images: [] };
+  state = { images: [] }
 
   // wrong
   async onSearchSubmit(term) {
     const response = await unsplash.get('/search/photos', {
       params: { query: term },
-    });
-
+    })
     // *this* here is the props property of SearchBar component
-    console.log(this); // {onSubmit: ƒ}
-    this.setState({ images: response.data.results }); // TypeError: this.setState is not a function
-  };
+    console.log(this) // {onSubmit: ƒ}
+    this.setState({ images: response.data.results }) // TypeError: this.setState is not a function
+  }
 
   // correct: bind *this* lexically
   onSearchSubmit = async term => {
     const response = await unsplash.get('/search/photos', {
       params: { query: term },
-    });
-
+    })
     // *this* here is App component
-    this.setState({ images: response.data.results });
-  };
+    this.setState({ images: response.data.results })
+  }
 
   render() {
     return (
@@ -420,7 +414,7 @@ class App extends Component {
         <SearchBar onSubmit={this.onSearchSubmit} />
         <ImageList images={this.state.images}/>
       </Fragment>
-    );
+    )
   }
 }
 ```
@@ -431,10 +425,10 @@ class App extends Component {
 
 ```javascript
 // App component
-import axios from 'axios';
+import axios from 'axios'
 
 class App extends Component {
-  state = { images: [] };
+  state = { images: [] }
 
   onSearchSubmit = async term => {
     const response = await axios.get('https://api.unsplash.com/search/photos',{
@@ -442,10 +436,9 @@ class App extends Component {
       headers: {
         Authorization: 'Client-ID d3bf95e6adc7bc93f6f6f726ce53a449c659f2c07be7b6abe85e1ffd7f19177d',
       },
-    });
-
-    this.setState({ images: response.data.results });
-  };
+    })
+    this.setState({ images: response.data.results })
+  }
 
   render() {
     //...
@@ -459,26 +452,24 @@ After refactoring
 
 ```javascript
 // api/unsplash
-import axios from 'axios';
+import axios from 'axios'
 
 export default axios.create({
   baseURL: 'https://api.unsplash.com',
   headers: {
     Authorization: 'Client-ID d3bf95e6adc7bc93f6f6f726ce53a449c659f2c07be7b6abe85e1ffd7f19177d',
   },
-});
+})
 
 // App component
 class App extends Component {
-  state = { images: [] };
-
+  state = { images: [] }
   onSearchSubmit = async term => {
     const response = await unsplash.get('/search/photos', {
       params: { query: term },
-    });
-
-    this.setState({ images: response.data.results });
-  };
+    })
+    this.setState({ images: response.data.results })
+  }
 
   render() {
     //...
@@ -499,26 +490,26 @@ Two things need to be concerned:
 2. We need to add a event listener to wait until the HTML reaching out the that url that we are referencing inside the image tag source and download the image in order to get the image properties
 
 ```javascript
-import React from 'react';
+import React from 'react'
 
 class ImageCard extends React.Component {
   constructor(props) {
-    super(props);
-    this.imageCardRef = React.createRef();
+    super(props)
+    this.imageCardRef = React.createRef()
   }
 
   componentDidMount() {
-    console.log(this.imageCardRef.current.clientHeight); // image not there yet
+    console.log(this.imageCardRef.current.clientHeight) // image not there yet
 
     // add a listener to wait until HTML downloading the image
     this.imageCardRef.current.addEventListener('load', () => {
-      const gridRowEnd = Math.ceil(this.imageCardRef.current.clientHeight / 10);
-      this.setState({ gridRowEnd });
-    });
+      const gridRowEnd = Math.ceil(this.imageCardRef.current.clientHeight / 10)
+      this.setState({ gridRowEnd })
+    })
   }
 
   render() {
-    const { src, alt } = this.props;
+    const { src, alt } = this.props
     <img ref={this.imageCardRef} src={src} alt={alt} />
   }
 }
