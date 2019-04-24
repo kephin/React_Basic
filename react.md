@@ -112,7 +112,7 @@ More information: [Lifecycle in React](./lifecycle.md)
 
 ```javascript
 const getSeason = (lat, month) => {
-  return month > 2 && month < 9) lat > 0
+  return month > 2 && month < 9
     ? lat > 0 ? 'summer' : 'winter'
     : lat > 0 ? 'winter' : 'summer'
 }
@@ -150,7 +150,7 @@ const seasonConfig = {
 }
 
 const getSeason = (lat, month) => {
-  return month > 2 && month < 9) lat > 0
+  return month > 2 && month < 9
     ? lat > 0 ? 'summer' : 'winter'
     : lat > 0 ? 'winter' : 'summer'
 }
